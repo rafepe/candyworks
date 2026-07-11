@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17131f">
+  <title>Candyworks — Simulador de Trocas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">CARNIVAL CANDYWORKS</p>
+      <h1>Simulador de trocas</h1>
+      <p class="subtitle">Teste receitas, desfaça movimentos e procure uma rota até a Arcana da Windranger.</p>
+    </div>
+
+    <div class="top-actions">
+      <button id="saveBtn" class="btn btn-ghost">Salvar</button>
+      <button id="loadBtn" class="btn btn-ghost">Carregar</button>
+      <button id="resetBtn" class="btn btn-danger">Reiniciar</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel inventory-panel">
+      <div class="panel-heading">
+        <div>
+          <span class="section-number">01</span>
+          <h2>Seus doces</h2>
+        </div>
+        <div class="score-box">
+          <span>Valor atual</span>
+          <strong id="currentScore">33</strong>
+        </div>
+      </div>
+
+      <div id="inventoryGrid" class="candy-grid"></div>
+
+      <div class="quick-actions">
+        <button id="addOneBtn" class="btn btn-secondary">Simular +1 doce</button>
+        <button id="undoBtn" class="btn btn-ghost" disabled>Desfazer última troca</button>
+      </div>
+    </section>
+
+    <section class="panel target-panel">
+      <div class="panel-heading">
+        <div>
+          <span class="section-number">02</span>
+          <h2>Meta: Arcana</h2>
+        </div>
+        <div class="score-box target-score">
+          <span>Valor necessário</span>
+          <strong id="targetScore">34</strong>
+        </div>
+      </div>
+
+      <div class="arcana-card">
+        <div class="arcana-illustration" aria-hidden="true">
+          <div class="bow"></div>
+          <div class="wind-ring wind-ring-a"></div>
+          <div class="wind-ring wind-ring-b"></div>
+        </div>
+
+        <div>
+          <p class="eyebrow">WINDRANGER</p>
+          <h3>Compass of the Rising Gale</h3>
+          <p class="muted">O alvo padrão foi configurado de acordo com a imagem enviada.</p>
+        </div>
+      </div>
+
+      <div id="targetGrid" class="target-grid"></div>
+
+      <div id="feasibilityBox" class="feasibility-box">
+        <strong id="feasibilityTitle">Analisando...</strong>
+        <p id="feasibilityText"></p>
+      </div>
+
+      <button id="searchBtn" class="btn btn-primary btn-wide">
+        Procurar sequência automaticamente
+      </button>
+    </section>
+
+    <section class="panel recipes-panel">
+      <div class="panel-heading">
+        <div>
+          <span class="section-number">03</span>
+          <h2>Receitas disponíveis</h2>
+        </div>
+      </div>
+
+      <div id="recipesList" class="recipes-list"></div>
+
+      <div class="custom-trade">
+        <div>
+          <span class="tag">TROCA PERSONALIZADA</span>
+          <h3>3 doces iguais → 1 doce escolhido</h3>
+        </div>
+
+        <div class="custom-controls">
+          <label>
+            Entregar
+            <select id="customFrom"></select>
+          </label>
+
+          <div class="arrow">→</div>
+
+          <label>
+            Receber
+            <select id="customTo"></select>
+          </label>
+
+          <button id="customTradeBtn" class="btn btn-secondary">Trocar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel history-panel">
+      <div class="panel-heading">
+        <div>
+          <span class="section-number">04</span>
+          <h2>Histórico</h2>
+        </div>
+        <button id="clearHistoryBtn" class="text-button">Limpar</button>
+      </div>
+
+      <ol id="historyList" class="history-list">
+        <li class="history-empty">Nenhuma troca realizada.</li>
+      </ol>
+    </section>
+
+    <section class="panel solution-panel">
+      <div class="panel-heading">
+        <div>
+          <span class="section-number">05</span>
+          <h2>Resultado da busca</h2>
+        </div>
+      </div>
+
+      <div id="solutionContent" class="solution-content">
+        <p class="muted">Clique em “Procurar sequência automaticamente”.</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="addCandyDialog">
+    <form method="dialog" class="dialog-card">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">SIMULAÇÃO</p>
+          <h2>Adicionar um doce</h2>
+        </div>
+        <button value="cancel" class="dialog-close" aria-label="Fechar">×</button>
+      </div>
+
+      <p class="muted">Escolha qual doce você quer adicionar ao estoque para testar um cenário futuro.</p>
+      <div id="addCandyOptions" class="dialog-options"></div>
+      <button value="cancel" class="btn btn-ghost btn-wide">Cancelar</button>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
